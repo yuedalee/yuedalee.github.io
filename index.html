@@ -215,6 +215,9 @@
       display: grid;
       gap: 16px;
       margin-top: 26px;
+      --flow-top: 48px;
+      --flow-height: 0px;
+      --flow-opacity: 0;
     }
     .system-map::before {
       content: "";
@@ -224,20 +227,46 @@
       right: 42px;
       width: 2px;
       border-radius: 999px;
-      background: linear-gradient(180deg, rgba(217,164,65,.08), rgba(217,164,65,.3), rgba(255,230,168,.86), rgba(217,164,65,.24), rgba(217,164,65,.08));
-      background-size: 100% 240%;
-      background-position: 0 -120%;
+      background: linear-gradient(180deg, rgba(217,164,65,.12), rgba(217,164,65,.34), rgba(217,164,65,.12));
       opacity: .28;
-      box-shadow: 0 0 14px rgba(217,164,65,.16);
+      box-shadow: 0 0 12px rgba(217,164,65,.15);
       pointer-events: none;
-      animation: flowRail 3.2s linear infinite;
+      transition: opacity .2s ease;
     }
-    .hero-card:hover .system-map::before {
-      opacity: .82;
+    .system-map::after {
+      content: "";
+      position: absolute;
+      top: var(--flow-top);
+      right: 42px;
+      width: 3px;
+      height: var(--flow-height);
+      border-radius: 999px;
+      opacity: var(--flow-opacity);
+      background: linear-gradient(180deg, transparent, rgba(255,230,158,.82), #ffd98f, transparent);
+      background-size: 100% 220%;
+      box-shadow: 0 0 20px rgba(255,217,143,.62), 0 0 36px rgba(217,164,65,.3);
+      pointer-events: none;
+      z-index: 0;
+      animation: flowDown 1.05s linear infinite;
+      transition: opacity .18s ease, top .18s ease, height .18s ease;
     }
-    @keyframes flowRail {
+    .system-map:has(.node:hover)::before {
+      opacity: .62;
+    }
+    .system-map:has(.node:nth-child(1):hover) { --flow-top: 44px; --flow-height: 108px; --flow-opacity: 1; }
+    .system-map:has(.node:nth-child(2):hover) { --flow-top: 150px; --flow-height: 108px; --flow-opacity: 1; }
+    .system-map:has(.node:nth-child(3):hover) { --flow-top: 256px; --flow-height: 108px; --flow-opacity: 1; }
+    .system-map:has(.node:nth-child(4):hover) { --flow-top: 44px; --flow-height: 320px; --flow-opacity: 1; }
+    .system-map:has(.node:nth-child(4):hover)::after {
+      animation-name: flowUp;
+    }
+    @keyframes flowDown {
       0% { background-position: 0 -120%; }
       100% { background-position: 0 120%; }
+    }
+    @keyframes flowUp {
+      0% { background-position: 0 120%; }
+      100% { background-position: 0 -120%; }
     }
     .node {
       position: relative;
@@ -272,7 +301,7 @@
       bottom: 0;
       left: -48%;
       width: 42%;
-      background: linear-gradient(90deg, transparent, rgba(217,164,65,.18), transparent);
+      background: linear-gradient(90deg, transparent, rgba(217,164,65,.22), transparent);
       opacity: 0;
       transform: skewX(-18deg);
       pointer-events: none;
@@ -292,6 +321,22 @@
       0% { transform: translateX(0) skewX(-18deg); }
       100% { transform: translateX(360%) skewX(-18deg); }
     }
+    .system-map:has(.node:nth-child(1):hover) .node:nth-child(2),
+    .system-map:has(.node:nth-child(2):hover) .node:nth-child(3),
+    .system-map:has(.node:nth-child(3):hover) .node:nth-child(4),
+    .system-map:has(.node:nth-child(4):hover) .node:nth-child(1) {
+      background: rgba(9,22,40,.78);
+      border-color: rgba(217,164,65,.24);
+    }
+    .system-map:has(.node:nth-child(1):hover) .node:nth-child(2) .pill,
+    .system-map:has(.node:nth-child(2):hover) .node:nth-child(3) .pill,
+    .system-map:has(.node:nth-child(3):hover) .node:nth-child(4) .pill,
+    .system-map:has(.node:nth-child(4):hover) .node:nth-child(1) .pill {
+      background: rgba(217,164,65,.18);
+      border-color: rgba(217,164,65,.42);
+      color: #ffd98f;
+      box-shadow: 0 0 16px rgba(217,164,65,.24);
+    }
     .node strong { display: block; margin-bottom: 5px; font-size: 16px; line-height: 1.45; transition: color .24s ease; }
     .node span { display: block; color: var(--muted2); font-size: 12.5px; line-height: 1.7; transition: color .24s ease; }
     .node:hover strong { color: #ffffff; }
@@ -305,13 +350,14 @@
       background: rgba(217,164,65,.11);
       font-size: 12px;
       font-weight: 900;
-      transition: transform .24s ease, background .24s ease, border-color .24s ease, color .24s ease;
+      transition: transform .24s ease, background .24s ease, border-color .24s ease, color .24s ease, box-shadow .24s ease;
     }
     .node:hover .pill {
       transform: scale(1.06);
       background: rgba(217,164,65,.18);
       border-color: rgba(217,164,65,.42);
       color: #ffd98f;
+      box-shadow: 0 0 16px rgba(217,164,65,.24);
     }
     .metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 18px; }
     .metric { padding: 17px; border-radius: 18px; border: 1px solid rgba(255,255,255,.11); background: rgba(255,255,255,.07); }
@@ -422,7 +468,7 @@
       .desktop-break { display: none; }
       .hero-grid, .section-title, .split, .contact-card { grid-template-columns: 1fr; }
       .section-title > p { transform: none; }
-      .system-map::before { display: none; }
+      .system-map::before, .system-map::after { display: none; }
       .cards { grid-template-columns: 1fr; }
       .hero { padding-top: 76px; }
       .hero-card { min-height: auto; }
