@@ -299,6 +299,10 @@
       text-wrap: pretty;
     }
 
+    .section-title > p {
+      transform: translateY(8px);
+    }
+
     .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
 
     .card {
@@ -388,6 +392,7 @@
     @media (max-width: 980px) {
       .desktop-break { display: none; }
       .hero-grid, .section-title, .split, .contact-card { grid-template-columns: 1fr; }
+      .section-title > p { transform: none; }
       .cards { grid-template-columns: 1fr; }
       .hero { padding-top: 76px; }
       .hero-card { min-height: auto; }
