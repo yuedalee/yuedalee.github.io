@@ -212,6 +212,8 @@
     }
     .system-map { display: grid; gap: 16px; margin-top: 26px; }
     .node {
+      position: relative;
+      overflow: hidden;
       padding: 20px;
       border-radius: 20px;
       display: flex;
@@ -220,9 +222,31 @@
       gap: 20px;
       background: rgba(7,17,31,.62);
       border: 1px solid rgba(255,255,255,.12);
+      transition: transform .24s ease, box-shadow .24s ease, border-color .24s ease, background .24s ease;
+      transform-origin: center center;
+      will-change: transform;
     }
-    .node strong { display: block; margin-bottom: 5px; font-size: 16px; line-height: 1.45; }
-    .node span { display: block; color: var(--muted2); font-size: 12.5px; line-height: 1.7; }
+    .node::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(135deg, rgba(255,255,255,.05), rgba(217,164,65,.03));
+      opacity: 0;
+      transition: opacity .24s ease;
+      pointer-events: none;
+    }
+    .node:hover {
+      transform: translateY(-6px) scale(1.02);
+      background: rgba(9,22,40,.88);
+      border-color: rgba(217,164,65,.35);
+      box-shadow: 0 18px 42px rgba(0,0,0,.28), 0 0 0 1px rgba(217,164,65,.08);
+    }
+    .node:hover::before { opacity: 1; }
+    .node strong { display: block; margin-bottom: 5px; font-size: 16px; line-height: 1.45; transition: color .24s ease; }
+    .node span { display: block; color: var(--muted2); font-size: 12.5px; line-height: 1.7; transition: color .24s ease; }
+    .node:hover strong { color: #ffffff; }
+    .node:hover span { color: #c9d6e6; }
     .pill {
       white-space: nowrap;
       padding: 6px 10px;
@@ -232,6 +256,13 @@
       background: rgba(217,164,65,.11);
       font-size: 12px;
       font-weight: 900;
+      transition: transform .24s ease, background .24s ease, border-color .24s ease, color .24s ease;
+    }
+    .node:hover .pill {
+      transform: scale(1.06);
+      background: rgba(217,164,65,.18);
+      border-color: rgba(217,164,65,.42);
+      color: #ffd98f;
     }
     .metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 18px; }
     .metric { padding: 17px; border-radius: 18px; border: 1px solid rgba(255,255,255,.11); background: rgba(255,255,255,.07); }
