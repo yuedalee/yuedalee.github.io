@@ -179,7 +179,7 @@
     .btn.primary { color: #07111f; background: #fff; border-color: #fff; }
     .btn.ghost { background: rgba(255,255,255,.06); }
     .hero-card {
-      min-height: 540px;
+      min-height: 500px;
       padding: 30px;
       border-radius: 34px;
       border: 1px solid var(--line);
@@ -210,78 +210,29 @@
       background: #59e28d;
       box-shadow: 0 0 18px #59e28d;
     }
-    .flywheel {
-      position: relative;
-      min-height: 350px;
-      margin-top: 26px;
-    }
-    .flywheel-ring {
-      position: absolute;
-      inset: 36px 46px;
-      border-radius: 50%;
-      border: 1px solid rgba(217,164,65,.34);
-      background: radial-gradient(circle, rgba(255,255,255,.08), rgba(255,255,255,.02) 48%, transparent 50%);
-      box-shadow: inset 0 0 38px rgba(217,164,65,.08), 0 0 44px rgba(110,168,255,.08);
-    }
-    .flywheel-ring::after {
-      content: "↻";
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 84px;
-      height: 84px;
-      display: grid;
-      place-items: center;
-      border-radius: 50%;
-      color: rgba(217,164,65,.68);
-      font-size: 40px;
-      border: 1px solid rgba(255,255,255,.11);
-      background: rgba(7,17,31,.46);
-      backdrop-filter: blur(8px);
-    }
-    .flywheel-core {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 2;
-      width: 158px;
-      padding: 15px 14px;
-      border-radius: 22px;
-      text-align: center;
-      background: rgba(7,17,31,.72);
-      border: 1px solid rgba(217,164,65,.24);
-      box-shadow: 0 18px 50px rgba(0,0,0,.22);
-    }
-    .flywheel-core strong { display: block; font-size: 15px; line-height: 1.35; }
-    .flywheel-core span { display: block; margin-top: 6px; color: var(--muted2); font-size: 12px; line-height: 1.55; }
-    .fly-node {
-      position: absolute;
-      z-index: 3;
-      width: 158px;
-      min-height: 94px;
-      padding: 14px 15px;
+    .system-map { display: grid; gap: 16px; margin-top: 26px; }
+    .node {
+      padding: 20px;
       border-radius: 20px;
-      background: rgba(7,17,31,.68);
-      border: 1px solid rgba(255,255,255,.13);
-      box-shadow: 0 18px 42px rgba(0,0,0,.20);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      background: rgba(7,17,31,.62);
+      border: 1px solid rgba(255,255,255,.12);
     }
-    .fly-node.n1 { left: 0; top: 0; }
-    .fly-node.n2 { right: 0; top: 0; }
-    .fly-node.n3 { right: 0; bottom: 0; }
-    .fly-node.n4 { left: 0; bottom: 0; }
-    .fly-node em {
-      display: block;
-      color: var(--gold);
-      font-style: normal;
+    .node strong { display: block; margin-bottom: 5px; font-size: 16px; line-height: 1.45; }
+    .node span { display: block; color: var(--muted2); font-size: 12.5px; line-height: 1.7; }
+    .pill {
+      white-space: nowrap;
+      padding: 6px 10px;
+      border-radius: 999px;
+      color: #f5d58c;
+      border: 1px solid rgba(217,164,65,.25);
+      background: rgba(217,164,65,.11);
       font-size: 12px;
-      font-weight: 950;
-      letter-spacing: .08em;
-      margin-bottom: 6px;
+      font-weight: 900;
     }
-    .fly-node strong { display: block; font-size: 16px; line-height: 1.35; }
-    .fly-node span { display: block; margin-top: 5px; color: var(--muted2); font-size: 12px; line-height: 1.55; }
     .metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 18px; }
     .metric { padding: 17px; border-radius: 18px; border: 1px solid rgba(255,255,255,.11); background: rgba(255,255,255,.07); }
     .metric b { display: block; font-size: 20px; line-height: 1.1; margin-bottom: 6px; }
@@ -391,9 +342,6 @@
       .desktop-break { display: none; }
       .hero-grid, .section-title, .split, .contact-card { grid-template-columns: 1fr; }
       .section-title > p { transform: none; }
-      .flywheel { display: grid; gap: 12px; min-height: auto; }
-      .flywheel-ring, .flywheel-core { display: none; }
-      .fly-node { position: static; width: auto; min-height: auto; }
       .cards { grid-template-columns: 1fr; }
       .hero { padding-top: 76px; }
       .hero-card { min-height: auto; }
@@ -439,36 +387,27 @@
           </div>
         </div>
 
-        <aside class="hero-card" aria-label="方法论转译飞轮示意">
+        <aside class="hero-card" aria-label="方法论转译路径示意">
           <div class="panel-header">
             <strong>Yueda AI Operating System</strong>
-            <span class="status">Flywheel prototype</span>
+            <span class="status">Prototype online</span>
           </div>
-          <div class="flywheel" aria-label="悦达智科方法论转译飞轮">
-            <div class="flywheel-ring" aria-hidden="true"></div>
-            <div class="flywheel-core">
-              <strong>方法论转译飞轮</strong>
-              <span>经验 → Skill → 系统</span>
+          <div class="system-map">
+            <div class="node">
+              <div><strong>真实业务</strong><span>问题、场景、经验与流程</span></div>
+              <span class="pill">01</span>
             </div>
-            <div class="fly-node n1">
-              <em>01</em>
-              <strong>真实业务</strong>
-              <span>问题、场景、经验与流程</span>
+            <div class="node">
+              <div><strong>方法转译</strong><span>商业理论、教练提问、增长方法</span></div>
+              <span class="pill">02</span>
             </div>
-            <div class="fly-node n2">
-              <em>02</em>
-              <strong>方法转译</strong>
-              <span>商业理论、教练提问、增长方法</span>
+            <div class="node">
+              <div><strong>系统落地</strong><span>Skill、Agent、本地应用与 OA 协同</span></div>
+              <span class="pill">03</span>
             </div>
-            <div class="fly-node n3">
-              <em>03</em>
-              <strong>系统落地</strong>
-              <span>Skill、Agent、本地应用与 OA 协同</span>
-            </div>
-            <div class="fly-node n4">
-              <em>04</em>
-              <strong>复盘沉淀</strong>
-              <span>数据反馈、行动复盘、知识资产</span>
+            <div class="node">
+              <div><strong>复盘沉淀</strong><span>数据反馈、行动复盘、知识资产</span></div>
+              <span class="pill">04</span>
             </div>
           </div>
           <div class="metrics">
